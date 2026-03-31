@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayne Industries</title>
+    <style>
+        .card {
+            background: #111;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #f0c419;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #111;
+            background: #f0c419;
+        }
+
+        .btn-edit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #45a049;
+        }
+
+        button:hover {
+            background: #e0b200;
+        }
+
+
+        .btn-add {
+            background: #f0c419;
+            /* width: 100px;
+            height: 40px; */
+        }
+
+        .btn-add:hover {
+            background: #e0b200;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        #seguranca {
+            justify-content: center;
+            text-align: center;
+            font-size: 35px;
+        }
+
+        #botao-seg{
+            margin-top: 20vh;
+            width: 400px;
+            height: 100px;
+            font-size: 25px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="default.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <img id="logo" src="wayne logo-Photoroom.png" alt="Logo" width="200">
+        <h2>Menu Administrador</h2>
+        <a href="#" onclick="mostrar('inicio')">🏠 Início</a>
+        <a href="#" onclick="mostrar('inventario')">📦 Inventário</a>
+        <a href="#" onclick="mostrar('veiculos')">🚗 Veículos</a>
+        <a href="#" onclick="mostrar('seguranca')">🔒 Segurança</a>
+    </div>
+
+    <div class="content">
+        <div id="inicio">
+            <h1>Bem-vindo à Wayne Industries</h1>
+            <p>Escolha uma opção no menu ao lado.</p>
+        </div>
+
+        <div id="inventario" class="hidden">
+            <h1>📦 Inventário</h1>
+            <form onsubmit="adicionarItem(event)">
+                <input type="text" id="item" placeholder="Nome do item" required>
+                <button class="btn-add" type="submit">Adicionar</button>
+            </form>
+            <div id="lista-inventario"></div>
+        </div>
+
+        <div id="veiculos" class="hidden">
+            <h1>🚗 Veículos</h1>
+            <button class="btn-add" onclick="mostrarVeiculos()">Mostrar Veículos</button>
+            <div id="lista-veiculos"></div>
+        </div>
+
+        <div id="seguranca" class="hidden">
+            <h1>🔒 Segurança</h1>
+            <button id="botao-seg" class="btn-add" onclick="alerta()">🚨 Acionar Alerta de Emergência</button>
+        </div>
+    </div>
+
+    <script>    
+        function mostrar(secao) {
+            document.querySelectorAll('.content > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(secao).classList.remove('hidden');
+        }
+
+        let inventario = ["Batarangue", "Cinto de Utilidades", "Explosivo de Gás"];
+
+        function renderizarInventario() {
+            const lista = document.getElementById('lista-inventario');
+            lista.innerHTML = "";
+            inventario.forEach((item, index) => {
+                lista.innerHTML += `
+          <div class="card">
+            📦 <span id="item-${index}">${item}</span>
+            <div class="botoes">
+              <button class="btn-edit" onclick="editarItem(${index})">Editar</button>
+              <button class="btn-delete" onclick="removerItem(${index})">Excluir</button>
+            </div>
+          </div>
+        `;
+            });
+        }
+
+        function adicionarItem(event) {
+            event.preventDefault();
+            const item = document.getElementById('item').value;
+            inventario.push(item);
+            renderizarInventario();
+            document.getElementById('item').value = "";
+        }
+
+        function editarItem(index) {
+            const novoNome = prompt("Editar item:", inventario[index]);
+            if (novoNome !== null && novoNome.trim() !== "") {
+                inventario[index] = novoNome;
+                renderizarInventario();
+            }
+        }
+
+        function removerItem(index) {
+            if (confirm("Tem certeza que deseja excluir este item?")) {
+                inventario.splice(index, 1);
+                renderizarInventario();
+            }
+        }
+
+        function mostrarVeiculos() {
+            const veiculos = ["Batmóvel", "Moto Tática", "Caminhão Blindado"];
+            const lista = document.getElementById('lista-veiculos');
+            lista.innerHTML = "";
+            veiculos.forEach(v => {
+                lista.innerHTML += `<div class="card">🚗 ${v}</div>`;
+            });
+        }
+
+        function alerta() {
+            alert("🚨 ALERTA DE EMERGÊNCIA ATIVADO! 🚨");
+        }
+
+        renderizarInventario();
+    </script>
+
+</body>
+
+</html>

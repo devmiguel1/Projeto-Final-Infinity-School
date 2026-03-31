@@ -1,0 +1,13 @@
+Identificações
+
+Funcionarios:
+Nome de usuario: Robin
+senha: RobinFuncionario123
+
+Gerentes:
+Nome de usuario: Alfred
+senha: AlfredGerente123
+
+Administradores:
+Nome de usuario: Batman
+senha: BatmanAdm123

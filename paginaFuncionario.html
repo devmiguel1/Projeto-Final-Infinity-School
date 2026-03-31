@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayne Industries</title>
+    <style>
+        .card {
+            background: #111;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #f0c419;
+        }
+
+    </style>
+    <link rel="stylesheet" href="default.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <img id="logo" src="wayne logo-Photoroom.png" alt="Logo" width="200">
+        <h2>Menu Funcionario</h2>
+        <a href="#" onclick="mostrar('inicio')">🏠 Início</a>
+        <a href="#" onclick="mostrar('inventario')">📦 Inventário</a>
+        <a href="#" onclick="mostrar('veiculos')">🚗 Veículos</a>
+    </div>
+
+    <div class="content">
+        <div id="inicio">
+            <h1>Bem-vindo à Wayne Industries</h1>
+            <p>Escolha uma opção no menu ao lado.</p>
+        </div>
+
+        <div id="inventario" class="hidden">
+            <h1>📦 Inventário</h1>
+            <div id="lista-inventario"></div>
+        </div>
+
+        <div id="veiculos" class="hidden">
+            <h1>🚗 Veículos</h1>
+            <div id="lista-veiculos"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrar(secao) {
+            document.querySelectorAll('.content > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(secao).classList.remove('hidden');
+        }
+
+        const inventario = ["Batarangue", "Cinto de Utilidades", "Explosivo de Gás"];
+
+        function renderizarInventario() {
+            const lista = document.getElementById('lista-inventario');
+            lista.innerHTML = "";
+            inventario.forEach(item => {
+                lista.innerHTML += `<div class="card">📦 ${item}</div>`;
+            });
+        }
+
+        function mostrarVeiculos() {
+            const veiculos = ["Batmóvel", "Moto Tática", "Caminhão Blindado"];
+            const lista = document.getElementById('lista-veiculos');
+            lista.innerHTML = "";
+            veiculos.forEach(v => {
+                lista.innerHTML += `<div class="card">🚗 ${v}</div>`;
+            });
+        }
+
+        renderizarInventario();
+        mostrarVeiculos();
+    </script>
+
+</body>
+
+</html>

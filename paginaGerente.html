@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayne Industries</title>
+    <style>
+
+        .card {
+            background: #111;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #f0c419;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #111;
+            background: #f0c419;
+        }
+
+        button:hover {
+            background: #e0b200;
+        }
+
+
+        .btn-edit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #45a049;
+        }
+    </style>
+
+    <link rel="stylesheet" href="default.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <img id="logo" src="wayne logo-Photoroom.png" alt="Logo" width="200">
+        <h2>Menu Gerente</h2>
+        <a href="#" onclick="mostrar('inicio')">🏠 Início</a>
+        <a href="#" onclick="mostrar('inventario')">📦 Inventário</a>
+        <a href="#" onclick="mostrar('veiculos')">🚗 Veículos</a>
+    </div>
+
+    <div class="content">
+        <div id="inicio">
+            <h1>Bem-vindo à Wayne Industries</h1>
+            <p>Escolha uma opção no menu ao lado.</p>
+        </div>
+
+        <div id="inventario" class="hidden">
+            <h1>📦 Inventário</h1>
+            <div id="lista-inventario"></div>
+        </div>
+
+        <div id="veiculos" class="hidden">
+            <h1>🚗 Veículos</h1>
+            <button class="btn-edit" onclick="mostrarVeiculos()">Mostrar Veículos</button>
+            <div id="lista-veiculos"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrar(secao) {
+            document.querySelectorAll('.content > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(secao).classList.remove('hidden');
+        }
+
+        let inventario = ["Batarangue", "Cinto de Utilidades", "Explosivo de Gás"];
+
+        function renderizarInventario() {
+            const lista = document.getElementById('lista-inventario');
+            lista.innerHTML = "";
+            inventario.forEach((item, index) => {
+                lista.innerHTML += `
+          <div class="card">
+            📦 <span id="item-${index}">${item}</span>
+            <div class="botoes">
+              <button class="btn-edit" onclick="editarItem(${index})">Editar</button>
+            </div>
+          </div>
+        `;
+            });
+        }
+
+        function editarItem(index) {
+            const novoNome = prompt("Editar item:", inventario[index]);
+            if (novoNome !== null && novoNome.trim() !== "") {
+                inventario[index] = novoNome;
+                renderizarInventario();
+            }
+        }
+
+        function mostrarVeiculos() {
+            const veiculos = ["Batmóvel", "Moto Tática", "Caminhão Blindado"];
+            const lista = document.getElementById('lista-veiculos');
+            lista.innerHTML = "";
+            veiculos.forEach(v => {
+                lista.innerHTML += `<div class="card">🚗 ${v}</div>`;
+            });
+        }
+
+        renderizarInventario();
+    </script>
+
+</body>
+
+</html>
